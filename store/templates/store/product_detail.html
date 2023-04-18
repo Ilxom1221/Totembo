@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+
+
+{% block header_text %}
+
+{% endblock header_text %}
+
+{% block header_poster %}
+
+{% endblock header_poster %}
+
+
+{% block main %}
+<main>
+        <section class="product_detail">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        {% include 'store/components/_product_slider.html' %}
+                    </div>
+                    <div class="col-md-6">
+                        {% include 'store/components/_product_detail-info.html' %}
+                        <p class="product_detail-guarantee" style="margin-bottom: 70px;">30 days return, free shipping</p>
+                        <a href="{% url 'to_cart' product.pk 'add' %}" class="product_detail-buy_btn" >ADD TO CART</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        {% include 'store/components/_brand_info.html' %}
+
+
+        {% include 'store/components/_reviews.html' %}
+
+        <div class="container mb-4">
+            {% if request.user.is_authenticated %}
+            <form action="{% url 'save_review' product.slug %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ review_form.text }}
+                <button class="btn btn-dark rounded" type="submit">Оставить отзыв</button>
+            </form>
+            {% else %}
+            <h4 class="text-center">Хочешь оставить отзыв <a class="navbar-brand text-danger" href="{% url 'login_registration' %}">Войди или Зарегистрируйся</a></h4>
+            {% endif %}
+        </div>
+
+
+        <div class="recommended_goods">
+            <h2 class="product_detail-main-title text-center">You may also like</h2>
+
+            <!-- PRODUCTS BLOCK START -->
+            <div class="container">
+                <div class="row">
+                    {% for product in products %}
+                        {% include 'store/components/_product_card.html' %}
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- PRODUCTS BLOCK END -->
+
+        </div>
+
+
+        <!-- BLOCK EMAIL FORM START -->
+        {% include 'store/components/_email_form.html' %}
+        <!-- BLOCK EMAIL FORM END -->
+</main>
+{% endblock main %}

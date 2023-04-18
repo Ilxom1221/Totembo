@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+
+
+{% block header_text %}
+
+{% endblock header_text %}
+
+{% block header_poster %}
+
+{% endblock header_poster %}
+
+
+{% block main %}
+<main>
+    <div class="container d-flex justify-content-around">
+
+        <div class="login">
+            <h2 class="form-title">Войти в Аккаунт</h2>
+            <form action="{% url 'login' %}" class="login-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    {{ login_form.username }}
+                </div>
+
+                <div class="form-group">
+                    {{ login_form.password }}
+                </div>
+
+                <button class="btn btn-dark rounded" type="submit">Войти</button>
+            </form>
+        </div>
+
+
+
+        <div class="registration">
+            <h2 class="form-title">Создать Аккаунт</h2>
+            <form action="{% url 'register' %}" class="login-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    {{ registration_form.username }}
+                </div>
+
+                <div class="form-group">
+                    {{ registration_form.first_name }}
+                </div>
+
+                <div class="form-group">
+                    {{ registration_form.last_name }}
+                </div>
+
+                <div class="form-group">
+                    {{ registration_form.email }}
+                </div>
+
+                <div class="form-group">
+                    {{ registration_form.password1 }}
+                </div>
+
+                <div class="form-group">
+                    {{ registration_form.password2 }}
+                </div>
+
+                <button class="btn btn-dark rounded" type="submit">Регистрация</button>
+
+            </form>
+        </div>
+
+    </div>
+
+
+
+</main>
+
+
+{% endblock main %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

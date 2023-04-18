@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+
+
+{% block main %}
+<main>
+    <!-- BLOCKS GUARANTEES START -->
+    <div class="container">
+        {% include 'store/components/_guarantees.html' %}
+
+    </div>
+    <!-- BLOCKS GUARANTEES START -->
+
+    {% for category in categories %}
+    <section class="products-section products_section-watches">
+        <!-- SECTION QUARTZ EDITION START -->
+        <h2 class="main_title text-center">{{ category.title }}</h2>
+
+        {% for child in category.subcategories.all %}
+        <h2 class="main_title text-center">{{ child.title }}</h2>
+        <div class="container">
+            <div class="row">
+                {% for product in child.products.all %}
+                {% include 'store/components/_product_card.html' %}
+                {% empty %}
+                <h6 class="h3" align="center">Товары в данной категории отсутствуют</h6>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+        <!-- SECTION QUARTZ EDITION END -->
+    </section>
+    {% endfor %}
+
+
+    <!-- SLIDER BLOCK START -->
+    {% include 'store/components/_categories_carousel.html' %}
+    <!-- SLIDER BLOCK END -->
+
+
+    <!-- BLOCK EMAIL FORM START -->
+    {% include 'store/components/_email_form.html' %}
+    <!-- BLOCK EMAIL FORM END -->
+</main>
+{% endblock main %}
+
+
